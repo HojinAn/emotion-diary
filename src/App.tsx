@@ -6,16 +6,32 @@ import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
 
+// COMPONENTS
+import MyButton from "./components/MyButton";
+
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <h2>App.js</h2>
-        <img src={`${process.env.PUBLIC_URL}/assets/emotion1.png`} alt="감정1" />
-        <img src={`${process.env.PUBLIC_URL}/assets/emotion2.png`} alt="감정2" />
-        <img src={`${process.env.PUBLIC_URL}/assets/emotion3.png`} alt="감정3" />
-        <img src={`${process.env.PUBLIC_URL}/assets/emotion4.png`} alt="감정4" />
-        <img src={`${process.env.PUBLIC_URL}/assets/emotion5.png`} alt="감정5" />
+
+        <MyButton
+          text={"버튼"}
+          onClick={() => alert("버튼 클릭")}
+          type={"positive"}
+        />
+        <MyButton
+          text={"버튼"}
+          onClick={() => alert("버튼 클릭")}
+          type={"negative"}
+        />
+        <MyButton
+          text={"버튼"}
+          onClick={() => alert("버튼 클릭")}
+          type={"asdfasdfasd"}
+        />
+        <MyButton text={"버튼"} onClick={() => alert("버튼 클릭")} />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<New />} />
