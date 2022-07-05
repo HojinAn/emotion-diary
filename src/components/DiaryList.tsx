@@ -2,6 +2,7 @@ import { DiaryInfo } from "../types/DiaryInfo";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import MyButton from "./MyButton";
+import DiaryItem from "./DiaryItem";
 
 type Option = { value: string; name: string };
 
@@ -83,7 +84,7 @@ const DiaryList = ({ diaryList }: { diaryList: DiaryInfo[] }) => {
         </div>
       </div>
       {getProcessedDiaryList().map((it) => (
-        <div key={it.id}>{it.content}</div>
+        <DiaryItem key={it.id} {...it} />
       ))}
     </div>
   );
