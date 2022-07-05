@@ -48,8 +48,16 @@ const reducer = (state: DiaryInfo[], action: Action) => {
   return newState;
 };
 
+interface ContextProps {
+  onCreate: Function;
+  onRemove: Function;
+  onEdit: Function;
+}
+
 export const DiaryStateContext = React.createContext<DiaryInfo[]>([]);
-export const DiaryDispatchContext = React.createContext<{}>({});
+export const DiaryDispatchContext = React.createContext<ContextProps>(
+  {} as ContextProps
+);
 
 const dummyData: DiaryInfo[] = [
   {
