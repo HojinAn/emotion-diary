@@ -9,8 +9,6 @@ import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
 
 // COMPONENTS
-import MyButton from "./components/MyButton";
-import MyHeader from "./components/MyHeader";
 import { DiaryInfo } from "./types/DiaryInfo";
 
 type Action =
