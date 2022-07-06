@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../App";
 import { getStringDate } from "../utils/date";
+import { emotionList } from "../utils/emotion";
 
 import { DiaryInfo } from "../types/DiaryInfo";
 import MyHeader from "../components/MyHeader";
@@ -29,6 +30,10 @@ const Diary = () => {
   if (!data) {
     return <div className="DiaryPage">로딩 중...</div>;
   } else {
+    const curEmotionData = emotionList.find(
+      (it) => it.emotion_id === data.emotion
+    );
+
     return (
       <div className="DiaryPage">
         <MyHeader
@@ -43,6 +48,25 @@ const Diary = () => {
             />
           }
         />
+        <article>
+          <section>
+            <h4>오늘의 감정</h4>
+            <div
+              className={[
+                "diary_img_wrapper",
+                `diary_img_wrapper_${data.emotion}`,
+              ].join(" ")}
+            >
+              <img
+                src={curEmotionData?.emotion_img}
+                alt={curEmotionData?.emotion_descript}
+              />
+              <div className="emotion_descript">
+                {curEmotionData?.emotion_descript}
+              </div>
+            </div>
+          </section>
+        </article>
       </div>
     );
   }
