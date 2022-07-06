@@ -1,49 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useContext, useEffect } from "react";
+import { getStringDate } from "../utils/date";
+import { emotionList } from "../utils/emotion";
 
 import MyButton from "./MyButton";
 import MyHeader from "./MyHeader";
-import { EmotionInfo } from "../types/EmotionInfo";
 import EmotionItem from "./EmotionItem";
 import { DiaryDispatchContext } from "../App";
-import { DiaryInfo } from "../types/DiaryInfo";
 
-const emotionList: EmotionInfo[] = [
-  {
-    emotion_id: 1,
-    emotion_img: `${process.env.PUBLIC_URL}/assets/emotion1.png`,
-    emotion_descript: "완전 좋음",
-  },
-  {
-    emotion_id: 2,
-    emotion_img: `${process.env.PUBLIC_URL}/assets/emotion2.png`,
-    emotion_descript: "좋음",
-  },
-  {
-    emotion_id: 3,
-    emotion_img: `${process.env.PUBLIC_URL}/assets/emotion3.png`,
-    emotion_descript: "그럭저럭",
-  },
-  {
-    emotion_id: 4,
-    emotion_img: `${process.env.PUBLIC_URL}/assets/emotion4.png`,
-    emotion_descript: "나쁨",
-  },
-  {
-    emotion_id: 5,
-    emotion_img: `${process.env.PUBLIC_URL}/assets/emotion5.png`,
-    emotion_descript: "완전 나쁨",
-  },
-];
+import { DiaryInfo } from "../types/DiaryInfo";
 
 interface EditorProps {
   isEdit?: boolean;
   originData?: DiaryInfo;
 }
-
-const getStringDate = (date: Date) => {
-  return date.toISOString().slice(0, 10);
-};
 
 const DiaryEditor = ({ isEdit, originData }: EditorProps) => {
   const contentRef = useRef<HTMLTextAreaElement>(null);
