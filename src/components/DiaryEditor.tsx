@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 
 import MyButton from "./MyButton";
 import MyHeader from "./MyHeader";
 import { EmotionInfo } from "../types/EmotionInfo";
 import EmotionItem from "./EmotionItem";
 import { DiaryDispatchContext } from "../App";
+import { DiaryInfo } from "../types/DiaryInfo";
 
 const emotionList: EmotionInfo[] = [
   {
@@ -35,37 +36,54 @@ const emotionList: EmotionInfo[] = [
   },
 ];
 
+interface EditorProps {
+  isEdit?: boolean;
+  originData?: DiaryInfo;
+}
+
 const getStringDate = (date: Date) => {
   return date.toISOString().slice(0, 10);
 };
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ isEdit, originData }: EditorProps) => {
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const [content, setContent] = useState("");
   const [emotion, setEmotion] = useState(3);
   const [date, setDate] = useState(getStringDate(new Date()));
 
-  const { onCreate } = useContext(DiaryDispatchContext);
+  const { onCreate, onEdit } = useContext(DiaryDispatchContext);
 
   const handleClickEmotion = (emotion: number) => {
     setEmotion(emotion);
   };
+
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     if (content.length < 1) {
       contentRef.current?.focus();
       return;
     }
-
-    onCreate(date, content, emotion);
+    window.confirm(
+      isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?"
+    ) && isEdit
+      ? onEdit(originData?.id, date, content, emotion)
+      : onCreate(date, content, emotion);
     navigate("/", { replace: true });
   };
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (isEdit && originData) {
+      setDate(getStringDate(new Date(originData.date)));
+      setEmotion(originData.emotion);
+      setContent(originData.content);
+    }
+  }, [isEdit, originData]);
+
   return (
     <div className="DiaryEditor">
       <MyHeader
-        headText={"새 일기쓰기"}
+        headText={isEdit ? "일기 수정하기" : "새 일기쓰기"}
         leftChild={
           <MyButton
             text={"< 뒤로가기"}
