@@ -45,6 +45,7 @@ const reducer = (state: DiaryInfo[], action: Action) => {
     default:
       return state;
   }
+  localStorage.setItem("diary", JSON.stringify(newState));
   return newState;
 };
 
@@ -59,48 +60,16 @@ export const DiaryDispatchContext = React.createContext<ContextProps>(
   {} as ContextProps
 );
 
-const dummyData: DiaryInfo[] = [
-  {
-    id: 1,
-    emotion: 1,
-    content: "오늘의 일기 1번",
-    date: 1656906762858,
-  },
-  {
-    id: 2,
-    emotion: 2,
-    content: "오늘의 일기 2번",
-    date: 1656906762859,
-  },
-  {
-    id: 3,
-    emotion: 3,
-    content: "오늘의 일기 3번",
-    date: 1656906762860,
-  },
-  {
-    id: 4,
-    emotion: 4,
-    content: "오늘의 일기 4번",
-    date: 1656906762861,
-  },
-  {
-    id: 5,
-    emotion: 5,
-    content: "오늘의 일기 5번",
-    date: 1656906762862,
-  },
-];
-
 function App() {
   useEffect(() => {
-    localStorage.setItem("item1", "10");
-    localStorage.setItem("item2", "20");
-    localStorage.setItem("item3", JSON.stringify({ value: 30 }));
+    const item1 = localStorage.getItem("item1");
+    const item2 = localStorage.getItem("item2");
+    const item3 = JSON.parse(localStorage.getItem("item3") || "{}");
+    console.log({ item1, item2, item3 });
   }, []);
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  const [data, dispatch] = useReducer(reducer, []);
 
-  const dataId = useRef(6); // dummy data가 5개 있으므로 6부터 시작해야함
+  const dataId = useRef(0); // dummy data가 5개 있으므로 6부터 시작해야함
   // CREATE
   const onCreate = (date: Date, content: string, emotion: number) => {
     dispatch({
