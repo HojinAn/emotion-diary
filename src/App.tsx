@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -93,6 +93,11 @@ const dummyData: DiaryInfo[] = [
 ];
 
 function App() {
+  useEffect(() => {
+    localStorage.setItem("item1", "10");
+    localStorage.setItem("item2", "20");
+    localStorage.setItem("item3", JSON.stringify({ value: 30 }));
+  }, []);
   const [data, dispatch] = useReducer(reducer, dummyData);
 
   const dataId = useRef(6); // dummy data가 5개 있으므로 6부터 시작해야함
