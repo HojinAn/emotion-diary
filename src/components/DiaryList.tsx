@@ -43,7 +43,7 @@ const ControlMenu = ({
 
 const DiaryList = ({ diaryList }: { diaryList: DiaryInfo[] }) => {
   const navigate = useNavigate();
-  const [sortType, setSortType] = useState("latest");
+  const [sortType, setSortType] = useState("latest");//오타 조심
   const [filter, setFilter] = useState("all");
 
   const getProcessedDiaryList = () => {

@@ -95,7 +95,7 @@ const dummyData: DiaryInfo[] = [
 function App() {
   const [data, dispatch] = useReducer(reducer, dummyData);
 
-  const dataId = useRef(0);
+  const dataId = useRef(6); // dummy data가 5개 있으므로 6부터 시작해야함
   // CREATE
   const onCreate = (date: Date, content: string, emotion: number) => {
     dispatch({

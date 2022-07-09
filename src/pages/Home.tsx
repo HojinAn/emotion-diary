@@ -22,7 +22,8 @@ const Home = () => {
       const lastDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + 1,
-        0
+        0,
+        23,59,59 // 마지막 날짜 추가는 주의
       ).getTime();
       setData(
         diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay)
