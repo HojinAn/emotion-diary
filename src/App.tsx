@@ -61,13 +61,18 @@ export const DiaryDispatchContext = React.createContext<ContextProps>(
 );
 
 function App() {
-  useEffect(() => {
-    const item1 = localStorage.getItem("item1");
-    const item2 = localStorage.getItem("item2");
-    const item3 = JSON.parse(localStorage.getItem("item3") || "{}");
-    console.log({ item1, item2, item3 });
-  }, []);
   const [data, dispatch] = useReducer(reducer, []);
+  useEffect(() => {
+    const localData = localStorage.getItem("diary");
+    if (localData) {
+      const diaryList: DiaryInfo[] = JSON.parse(localData).sort(
+        (a: DiaryInfo, b: DiaryInfo) => b.id - a.id
+      );
+      dataId.current = diaryList[0].id + 1;
+
+      dispatch({ type: "INIT", data: diaryList });
+    }
+  }, []);
 
   const dataId = useRef(0); // dummy data가 5개 있으므로 6부터 시작해야함
   // CREATE
