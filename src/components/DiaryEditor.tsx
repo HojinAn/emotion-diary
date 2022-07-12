@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef, useContext, useEffect, useCallback } from "react";
 import { getStringDate } from "../utils/date";
 import { emotionList } from "../utils/emotion";
 
@@ -23,9 +23,9 @@ const DiaryEditor = ({ isEdit, originData }: EditorProps) => {
 
   const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
 
-  const handleClickEmotion = (emotion: number) => {
+  const handleClickEmotion = useCallback((emotion: number) => {
     setEmotion(emotion);
-  };
+  }, []);
 
   const handleRemove = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
