@@ -1,6 +1,6 @@
 import { DiaryInfo } from "../types/DiaryInfo";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import MyButton from "./MyButton";
 import DiaryItem from "./DiaryItem";
 
@@ -17,33 +17,35 @@ const filterOptionList: Option[] = [
   { value: "bad", name: "안좋은만감정만" },
 ];
 
-const ControlMenu = ({
-  value,
-  onChange,
-  optionList,
-}: {
-  value: string;
-  onChange: Function;
-  optionList: Option[];
-}) => {
-  return (
-    <select
-      className="ControlMenu"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    >
-      {optionList.map((it, idx) => (
-        <option value={it.value} key={idx}>
-          {it.name}
-        </option>
-      ))}
-    </select>
-  );
-};
+const ControlMenu = React.memo(
+  ({
+    value,
+    onChange,
+    optionList,
+  }: {
+    value: string;
+    onChange: Function;
+    optionList: Option[];
+  }) => {
+    return (
+      <select
+        className="ControlMenu"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        {optionList.map((it, idx) => (
+          <option value={it.value} key={idx}>
+            {it.name}
+          </option>
+        ))}
+      </select>
+    );
+  }
+);
 
 const DiaryList = ({ diaryList }: { diaryList: DiaryInfo[] }) => {
   const navigate = useNavigate();
-  const [sortType, setSortType] = useState("latest");//오타 조심
+  const [sortType, setSortType] = useState("latest"); //오타 조심
   const [filter, setFilter] = useState("all");
 
   const getProcessedDiaryList = () => {
